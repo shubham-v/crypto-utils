@@ -1,4 +1,4 @@
-package random;
+package code.shubham.random;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -19,10 +19,15 @@ public class SaltUtil {
         return encryptedDataWithSalt;
     }
 
-    private static byte[] extract(byte[] data) {
+    public static byte[] extract(byte[] data) {
         byte[] salt = new byte[16];
         System.arraycopy(data, 0, salt, 0, salt.length);
         return salt;
     }
 
+    public static byte[] extractKey(byte[] data) {
+        byte[] encryptedData = new byte[data.length - 16];
+        System.arraycopy(data, 16, encryptedData, 0, encryptedData.length);
+        return encryptedData;
+    }
 }

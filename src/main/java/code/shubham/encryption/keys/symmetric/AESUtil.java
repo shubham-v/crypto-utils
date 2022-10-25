@@ -1,8 +1,8 @@
-package encryption.keys.symmetric;
+package code.shubham.encryption.keys.symmetric;
 
-import hash.Base64Util;
+import code.shubham.hash.Base64Util;
 import lombok.extern.slf4j.Slf4j;
-import random.SaltUtil;
+import code.shubham.random.SaltUtil;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;

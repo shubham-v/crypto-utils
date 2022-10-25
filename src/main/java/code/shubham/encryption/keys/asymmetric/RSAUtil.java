@@ -1,4 +1,4 @@
-package encryption.keys.asymmetric;
+package code.shubham.encryption.keys.asymmetric;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;

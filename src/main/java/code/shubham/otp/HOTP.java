@@ -1,4 +1,4 @@
-package otp;
+package code.shubham.otp;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
  */
 /**
  * This class contains static methods that are used to calculate the
- * One-Time Password (otp.OTP) using
+ * One-Time Password (code.shubham.otp.OTP) using
  * JCE to provide the HMAC-SHA-1.
  *
  * @author Loren Hart
@@ -58,7 +58,7 @@ public class HOTP {
      * This method uses the JCE to provide the HMAC-SHA-1
      * algorithm.
      * HMAC computes a Hashed Message Authentication Code and
-     * in this case SHA1 is the hash algorithm used.
+     * in this case SHA1 is the code.shubham.hash algorithm used.
      *
      * @param keyBytes   the bytes to use for the HMAC-SHA-1 key
      * @param text       the message or text to be authenticated.
@@ -95,16 +95,16 @@ public class HOTP {
             = {1,10,100,1000,10000,100000,1000000,10000000,100000000};
 
     /**
-     * This method generates an otp.OTP value for the given
+     * This method generates an code.shubham.otp.OTP value for the given
      * set of parameters.
      *
      * @param secret       the shared secret
      * @param movingFactor the counter, time, or other value that
      *                     changes on a per use basis.
-     * @param codeDigits   the number of digits in the otp.OTP, not
+     * @param codeDigits   the number of digits in the code.shubham.otp.OTP, not
      *                     including the checksum, if any.
      * @param addChecksum  a flag that indicates if a checksum digit
-     *                     should be appended to the otp.OTP.
+     *                     should be appended to the code.shubham.otp.OTP.
      * @param truncationOffset the offset into the MAC result to
      *                     begin truncation.  If this value is out of
      *                     the range of 0 ... 15, then dynamic
@@ -139,7 +139,7 @@ public class HOTP {
             movingFactor >>= 8;
         }
 
-        // compute hmac hash
+        // compute hmac code.shubham.hash
         byte[] hash = hmac_sha1(secret, text);
 
         // put selected bytes into result int

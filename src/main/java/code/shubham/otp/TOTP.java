@@ -1,4 +1,4 @@
-package otp;
+package code.shubham.otp;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.security.GeneralSecurityException;
@@ -31,7 +31,7 @@ public class TOTP {
     /**
      * This method uses the JCE to provide the crypto algorithm.
      * HMAC computes a Hashed Message Authentication Code with the
-     * crypto hash algorithm as a parameter.
+     * crypto code.shubham.hash algorithm as a parameter.
      *
      * @param crypto: the crypto algorithm (HmacSHA1, HmacSHA256,
      *                             HmacSHA512)

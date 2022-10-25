@@ -1,4 +1,4 @@
-package random;
+package code.shubham.random;
 
 import org.apache.commons.lang3.RandomStringUtils;
 

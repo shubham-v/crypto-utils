@@ -1,4 +1,4 @@
-package hex;
+package code.shubham.hex;
 
 public class HexUtil {
 

@@ -1,4 +1,4 @@
-package otp;
+package code.shubham.otp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +24,7 @@ public class OTP {
             Integer otpTemp = formatOTP(hmac);
             return StringUtils.leftPad(otpTemp.toString(), 6, '0');
         } catch (Exception ex) {
-			log.error("Error while generating otp.OTP ", ex);
+			log.error("Error while generating code.shubham.otp.OTP ", ex);
             throw new RuntimeException("");
         }
     }
