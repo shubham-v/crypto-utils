@@ -1,6 +1,7 @@
 package code.shubham;
 
 import code.shubham.encryption.keys.asymmetric.RSAUtil;
+import code.shubham.encryption.keys.symmetric.AESUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 
@@ -22,6 +23,27 @@ import java.security.spec.PKCS8EncodedKeySpec;
 public class CryptoUtil {
 
     private static final String AES = "AES";
+
+
+    public static byte[] encryptUsingSecretKey(byte[] key, byte[] data) {
+        byte[] encryptedText = null;
+        try {
+            encryptedText = AESUtil.encrypt(key, data);
+        } catch (Exception e) {
+            log.error("Error while encrypting using secret key from byte array" + data, e);
+        }
+        return encryptedText;
+    }
+
+    public static byte[] decryptUsingSecretKey(byte[] key, byte[] data) {
+        byte[] decryptedText = null;
+        try {
+            decryptedText = AESUtil.decrypt(key, data);
+        } catch (Exception e) {
+            log.error("Error while decrypting using secret key from byte array" + data, e);
+        }
+        return decryptedText;
+    }
 
     public static byte[] decryptUsingPrivateKey(byte[] key, byte[] data) {
         byte[] decryptedText = null;

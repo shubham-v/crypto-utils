@@ -36,7 +36,7 @@ public class AESUtil {
     public static final String AES_ECB_PKCS5_PADDING = "AES/ECB/PKCS5Padding";
     public static final String AES_CBC_PKCS5_PADDING = "AES/CBC/PKCS5Padding";
     private static final String AES = "AES";
-    private static final int SYMMETRIC_KEY_SIZE = 128;
+    private static final int SYMMETRIC_KEY_SIZE = AES_KEY_SIZE._128.get();
     private static final String PBKDF2_WITH_HMAC_SHA_256 = "PBKDF2WithHmacSHA256";
     private static final int INITIALIZATION_VECTOR_SIZE =  16;
     private static final String PBKDF2_WITH_HMAC_SHA_1 = "PBKDF2WithHmacSHA1";
@@ -45,7 +45,20 @@ public class AESUtil {
         return Base64Util.toBase64(generateKey().getEncoded());
     }
 
-    private static SecretKey generateKey() throws Exception {
+    public static SecretKey generateKey(AES_KEY_SIZE size) throws Exception {
+        SecretKey secretKey;
+        try {
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            keyGenerator.init(size.get());
+            secretKey = keyGenerator.generateKey();
+        } catch (Exception e) {
+            log.error("Error while generating AES key", e);
+            throw e;
+        }
+        return secretKey;
+    }
+
+    public static SecretKey generateKey() throws Exception {
         SecretKey secretKey;
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
@@ -209,7 +222,7 @@ public class AESUtil {
             byte[] encryptedData = encrypt(encryptionKey, data);
             return SaltUtil.concat(saltInBytes, encryptedData);
         } catch (Exception ex) {
-            log.error("Error while encrpting using password");
+            log.error("Error while encrypting using password");
             throw ex;
         }
     }
