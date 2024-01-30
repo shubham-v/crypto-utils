@@ -124,28 +124,28 @@ public class KeyStoreUtils {
         return KeyStoreUtils.getBytes(keyStore, passwordArray, keyStoreFilePath);
     }
 
-    public static void main(String[] args) throws Exception {
-        String keyStorePath = "keystores/keystore.p12";
-        String password = "password";
-        String alias = "AESSecretAccessTokenSecretAlias";
-//        SecretKey secretKey = AESUtil.generateKey(AES_KEY_SIZE._256);
-
-        KeyPair keyPair = RSAUtil.generate();
-        X509Certificate certificate = RSAUtil.createCertificate("CN=Client", "CN=Client", keyPair.getPublic(), keyPair.getPrivate());
-        byte[] keyBytes = createKeyStoreAndGetBytes(
-                keyStorePath, KeyStoreType.pkcs12, password, alias, keyPair.getPrivate(), keyPair.getPublic());
-        System.out.println(keyBytes);
-
-        KeyStore store = KeyStoreUtils.readFromFile(KeyStoreType.pkcs12, password, keyStorePath);
-        Key readKey = store.getKey(alias, password.toCharArray());
-
-        if (keyPair.getPrivate().equals(readKey)) {
-            System.out.println("true");
-        }
-
-
-//        String password = "passwordforalias1";
-//        KeyStoreUtils.saveSymmetricKey(alias + "symmentric.p12", secretKey, alias, password.toCharArray());
-    }
+//    public static void main(String[] args) throws Exception {
+//        String keyStorePath = "keystores/keystore.p12";
+//        String password = "password";
+//        String alias = "AESSecretAccessTokenSecretAlias";
+////        SecretKey secretKey = AESUtil.generateKey(AES_KEY_SIZE._256);
+//
+//        KeyPair keyPair = RSAUtil.generate();
+//        X509Certificate certificate = RSAUtil.createCertificate("CN=Client", "CN=Client", keyPair.getPublic(), keyPair.getPrivate());
+//        byte[] keyBytes = createKeyStoreAndGetBytes(
+//                keyStorePath, KeyStoreType.pkcs12, password, alias, keyPair.getPrivate(), keyPair.getPublic());
+//        System.out.println(keyBytes);
+//
+//        KeyStore store = KeyStoreUtils.readFromFile(KeyStoreType.pkcs12, password, keyStorePath);
+//        Key readKey = store.getKey(alias, password.toCharArray());
+//
+//        if (keyPair.getPrivate().equals(readKey)) {
+//            System.out.println("true");
+//        }
+//
+//
+////        String password = "passwordforalias1";
+////        KeyStoreUtils.saveSymmetricKey(alias + "symmentric.p12", secretKey, alias, password.toCharArray());
+//    }
 
 }

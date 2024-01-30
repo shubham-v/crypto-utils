@@ -31,10 +31,10 @@ public class SHA512 {
         }
     }
 
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        System.out.println(generateAndGetHexString("test"));
-        System.out.println(Hex.encodeHexString((generate("test"))));
-    }
+//    public static void main(String[] args) throws NoSuchAlgorithmException {
+//        System.out.println(generateAndGetHexString("test"));
+//        System.out.println(Hex.encodeHexString((generate("test"))));
+//    }
 
 }
 
