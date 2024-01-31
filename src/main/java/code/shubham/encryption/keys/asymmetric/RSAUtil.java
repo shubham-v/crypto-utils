@@ -3,6 +3,7 @@ package code.shubham.encryption.keys.asymmetric;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.asn1.x509.X509Name;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.x509.X509V3CertificateGenerator;
 
 import javax.crypto.BadPaddingException;
@@ -10,7 +11,9 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -186,6 +189,26 @@ public class RSAUtil {
         return keyFactory.generatePublic(publicKeySpec);
     }
 
+    public static PrivateKey readPrivateKeyFromFile(String filePath)
+            throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
+        Security.addProvider(new BouncyCastleProvider());
+        final File file = new File(filePath);
+
+        try (FileInputStream fileStream = new FileInputStream(file);
+             DataInputStream dataStream = new DataInputStream(fileStream)) {
+            byte[] keyBytes = new byte[(int) file.length()];
+            dataStream.readFully(keyBytes);
+            String temp = new String(keyBytes, "UTF-8");
+            String header = temp.replace("-----BEGIN PRIVATE KEY-----", "");
+            header = header.replace("-----END PRIVATE KEY-----", "");
+            header.replace("\n", "");
+            byte[] decoded = java.util.Base64.getDecoder().decode(header);
+            PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
+            KeyFactory kf = KeyFactory.getInstance("RSA");
+            return kf.generatePrivate(spec);
+        }
+    }
+
 //    public static X509Certificate generateSelfSignedCertificate(KeyPair keyPair) throws CertificateException, IOException, NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
 //        X509CertInfo certInfo = new X509CertInfo();
 //        // Serial number and version
@@ -276,7 +299,7 @@ public class RSAUtil {
 
     public static X509Certificate createCertificate(String dn, String issuer,
                                                      PublicKey publicKey, PrivateKey privateKey) throws Exception {
-        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+        Security.addProvider(new BouncyCastleProvider());
         X509V3CertificateGenerator certGenerator = new X509V3CertificateGenerator();
         certGenerator.setSerialNumber(BigInteger.valueOf(Math.abs(new Random()
                 .nextLong())));
